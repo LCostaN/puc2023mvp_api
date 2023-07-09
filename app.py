@@ -4,167 +4,179 @@ from urllib.parse import unquote
 
 from sqlalchemy.exc import IntegrityError
 
-from model import Session, Produto, Comentario
+from model import Session, Product, Schedule
 from logger import logger
 from schemas import *
 from flask_cors import CORS
 
-info = Info(title="Minha API", version="1.0.0")
+from datetime import datetime, timedelta
+
+
+info = Info(title="Dog care", version="1.0.0")
 app = OpenAPI(__name__, info=info)
 CORS(app)
 
 # definindo tags
 home_tag = Tag(name="Documentação", description="Seleção de documentação: Swagger, Redoc ou RapiDoc")
-produto_tag = Tag(name="Produto", description="Adição, visualização e remoção de produtos à base")
-comentario_tag = Tag(name="Comentario", description="Adição de um comentário à um produtos cadastrado na base")
+product_tag = Tag(name="Produto", description="Adição, visualização e remoção de produtos à base")
+schedule_tag = Tag(name="Agendamento", description="Adição de agendamentos à base")
 
 
 @app.get('/', tags=[home_tag])
 def home():
     """Redireciona para /openapi, tela que permite a escolha do estilo de documentação.
     """
-    return redirect('/openapi')
+    return redirect('/openapi/swagger')
 
 
-@app.post('/produto', tags=[produto_tag],
+@app.post('/product', tags=[product_tag],
           responses={"200": ProdutoViewSchema, "409": ErrorSchema, "400": ErrorSchema})
 def add_produto(form: ProdutoSchema):
     """Adiciona um novo Produto à base de dados
-
-    Retorna uma representação dos produtos e comentários associados.
     """
-    produto = Produto(
-        nome=form.nome,
-        quantidade=form.quantidade,
-        valor=form.valor)
-    logger.debug(f"Adicionando produto de nome: '{produto.nome}'")
+    produto = Product(
+        name=form.name,
+        category=form.category,
+        description=form.description,
+        src=form.src,
+        quantity=form.quantity,
+    )
+    logger.debug(f"Adicionando produto de nome: '{produto.name}'")
     try:
-        # criando conexão com a base
         session = Session()
-        # adicionando produto
         session.add(produto)
-        # efetivando o camando de adição de novo item na tabela
         session.commit()
-        logger.debug(f"Adicionado produto de nome: '{produto.nome}'")
+        logger.debug(f"Adicionado produto de nome: '{produto.name}'")
         return apresenta_produto(produto), 200
 
     except IntegrityError as e:
-        # como a duplicidade do nome é a provável razão do IntegrityError
-        error_msg = "Produto de mesmo nome já salvo na base :/"
-        logger.warning(f"Erro ao adicionar produto '{produto.nome}', {error_msg}")
-        return {"mesage": error_msg}, 409
+        error_msg = "Produto de mesmo nome já salvo na base"
+        logger.warning(f"Erro ao adicionar produto '{produto.name}', {error_msg}")
+        return {"message": error_msg}, 409
 
     except Exception as e:
-        # caso um erro fora do previsto
-        error_msg = "Não foi possível salvar novo item :/"
-        logger.warning(f"Erro ao adicionar produto '{produto.nome}', {error_msg}")
-        return {"mesage": error_msg}, 400
+        error_msg = "Não foi possível salvar novo item"
+        logger.warning(f"Erro ao adicionar produto '{produto.name}', {error_msg}")
+        return {"message": error_msg}, 400
 
 
-@app.get('/produtos', tags=[produto_tag],
+@app.get('/products', tags=[product_tag],
          responses={"200": ListagemProdutosSchema, "404": ErrorSchema})
 def get_produtos():
-    """Faz a busca por todos os Produto cadastrados
+    """Faz a busca por todos os Produtos cadastrados.
 
     Retorna uma representação da listagem de produtos.
     """
     logger.debug(f"Coletando produtos ")
-    # criando conexão com a base
     session = Session()
-    # fazendo a busca
-    produtos = session.query(Produto).all()
+    produtos = session.query(Product).all()
 
     if not produtos:
-        # se não há produtos cadastrados
-        return {"produtos": []}, 200
+        return {"products": []}, 200
     else:
-        logger.debug(f"%d rodutos econtrados" % len(produtos))
-        # retorna a representação de produto
+        logger.debug(f"%d produtos encontrados" % len(produtos))
         print(produtos)
         return apresenta_produtos(produtos), 200
 
 
-@app.get('/produto', tags=[produto_tag],
+@app.get('/product', tags=[product_tag],
          responses={"200": ProdutoViewSchema, "404": ErrorSchema})
 def get_produto(query: ProdutoBuscaSchema):
-    """Faz a busca por um Produto a partir do id do produto
+    """Faz a busca por um Produto a partir do id do produto.
 
-    Retorna uma representação dos produtos e comentários associados.
+    Retorna uma representação dos produtos.
     """
     produto_id = query.id
     logger.debug(f"Coletando dados sobre produto #{produto_id}")
-    # criando conexão com a base
     session = Session()
-    # fazendo a busca
-    produto = session.query(Produto).filter(Produto.id == produto_id).first()
+    produto = session.query(Product).filter(Product.id == produto_id).first()
 
     if not produto:
-        # se o produto não foi encontrado
         error_msg = "Produto não encontrado na base :/"
         logger.warning(f"Erro ao buscar produto '{produto_id}', {error_msg}")
-        return {"mesage": error_msg}, 404
+        return {"message": error_msg}, 404
     else:
-        logger.debug(f"Produto econtrado: '{produto.nome}'")
-        # retorna a representação de produto
+        logger.debug(f"Produto encontrado: '{produto.name}'")
         return apresenta_produto(produto), 200
 
 
-@app.delete('/produto', tags=[produto_tag],
+@app.delete('/product', tags=[product_tag],
             responses={"200": ProdutoDelSchema, "404": ErrorSchema})
 def del_produto(query: ProdutoBuscaSchema):
     """Deleta um Produto a partir do nome de produto informado
 
     Retorna uma mensagem de confirmação da remoção.
     """
-    produto_nome = unquote(unquote(query.nome))
+    produto_nome = unquote(unquote(query.name))
     print(produto_nome)
     logger.debug(f"Deletando dados sobre produto #{produto_nome}")
-    # criando conexão com a base
     session = Session()
-    # fazendo a remoção
-    count = session.query(Produto).filter(Produto.nome == produto_nome).delete()
+    count = session.query(Product).filter(Product.name == produto_nome).delete()
     session.commit()
 
     if count:
-        # retorna a representação da mensagem de confirmação
         logger.debug(f"Deletado produto #{produto_nome}")
-        return {"mesage": "Produto removido", "id": produto_nome}
+        return {"message": "Produto removido", "id": produto_nome}
     else:
-        # se o produto não foi encontrado
         error_msg = "Produto não encontrado na base :/"
         logger.warning(f"Erro ao deletar produto #'{produto_nome}', {error_msg}")
-        return {"mesage": error_msg}, 404
+        return {"message": error_msg}, 404
 
 
-@app.post('/cometario', tags=[comentario_tag],
-          responses={"200": ProdutoViewSchema, "404": ErrorSchema})
-def add_comentario(form: ComentarioSchema):
-    """Adiciona de um novo comentário à um produtos cadastrado na base identificado pelo id
+@app.post('/schedule', tags=[schedule_tag],
+          responses={"200": ScheduleViewSchema, "404": ErrorSchema})
+def add_schedule(form: ScheduleSchema):
+    """Adiciona um novo agendamento
 
-    Retorna uma representação dos produtos e comentários associados.
+    Retorna uma representação do agendamento.
     """
-    produto_id  = form.produto_id
-    logger.debug(f"Adicionando comentários ao produto #{produto_id}")
-    # criando conexão com a base
-    session = Session()
-    # fazendo a busca pelo produto
-    produto = session.query(Produto).filter(Produto.id == produto_id).first()
+    date = datetime.strptime(form.date, "%d/%m/%Y %H:%M")
+    schedule = Schedule(
+        name=form.name,
+        date=date,
+        src=form.src,
+    )
+    logger.debug(form)
+    logger.debug(f"Adicionando agendamento de '{schedule.name}' no dia e horário '{schedule.date}'")
+    try:
+        session = Session()
+        session.add(schedule)
+        session.commit()
+        logger.debug(f"Adicionado agendamento '{schedule.id}'")
+        return apresenta_agendamento(schedule), 200
 
-    if not produto:
-        # se produto não encontrado
-        error_msg = "Produto não encontrado na base :/"
-        logger.warning(f"Erro ao adicionar comentário ao produto '{produto_id}', {error_msg}")
-        return {"mesage": error_msg}, 404
+    except IntegrityError as e:
+        error_msg = "Horário de agendamento não disponível"
+        logger.warning(f"Erro ao adicionar agendamento '{schedule}', {error_msg}")
+        return {"message": error_msg}, 409
 
-    # criando o comentário
-    texto = form.texto
-    comentario = Comentario(texto)
+    except Exception as e:
+        error_msg = "Não foi possível salvar novo item"
+        logger.error(f"Erro ao adicionar agendamento', {e}")
+        return {"message": error_msg}, 400
 
-    # adicionando o comentário ao produto
-    produto.adiciona_comentario(comentario)
-    session.commit()
 
-    logger.debug(f"Adicionado comentário ao produto #{produto_id}")
+@app.get('/schedules', tags=[schedule_tag],
+         responses={"200": ScheduleListSchema, "404": ErrorSchema})
+def get_schedules(query: ScheduleListSearchSchema):
+    """Faz a busca pelos Agendamentos cadastrados a partir da data informada até os próximos 7 dias.
 
-    # retorna a representação de produto
-    return apresenta_produto(produto), 200
+    Retorna uma representação da listagem de agendamentos.
+    """
+    try:
+        initialDate = datetime.strptime(query.date, "%d/%m/%Y")
+        finalDate = initialDate + timedelta(days = 8)
+        logger.debug(f"Coletando agendamentos ")
+        session = Session()
+        schedules = session.query(Schedule).filter(Schedule.date >= initialDate,Schedule.date < finalDate).all()
+
+        if not schedules:
+            return {"schedules": []}, 200
+        else:
+            logger.debug(f"%d agendamentos encontrados" % len(schedules))
+            return apresenta_agendamentos(schedules), 200
+    
+    except Exception as e:
+        logger.error(e)
+        error_msg = f"Não foi possível buscar os agendamentos a partir de {query.date}"
+        return {"message": error_msg}, 400
