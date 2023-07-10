@@ -28,4 +28,4 @@ class Schedule(Base):
         self.src = src
 
     def __str__(self):
-        return '{ id: ' + (self.id or 'null') + ', name: ' + self.name + ', date: ' + self.date + ', src: ' + self.src + ' }'
+        return '{ id: ' + (self.id or 'null') + ', name: ' + self.name + ', date: ' + self.date.strftime("%d/%m/%Y %H:%M") + ', src: ' + self.src + ' }'

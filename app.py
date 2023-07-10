@@ -12,7 +12,7 @@ from flask_cors import CORS
 from datetime import datetime, timedelta
 
 
-info = Info(title="Dog care", version="1.0.0")
+info = Info(title="Dog Care API", version="1.0.0")
 app = OpenAPI(__name__, info=info)
 CORS(app)
 
@@ -31,15 +31,15 @@ def home():
 
 @app.post('/product', tags=[product_tag],
           responses={"200": ProdutoViewSchema, "409": ErrorSchema, "400": ErrorSchema})
-def add_produto(form: ProdutoSchema):
+def add_produto(body: ProdutoSchema):
     """Adiciona um novo Produto à base de dados
     """
     produto = Product(
-        name=form.name,
-        category=form.category,
-        description=form.description,
-        src=form.src,
-        quantity=form.quantity,
+        name=body.name,
+        category=body.category,
+        description=body.description,
+        src=body.src,
+        quantity=body.quantity,
     )
     logger.debug(f"Adicionando produto de nome: '{produto.name}'")
     try:
@@ -102,7 +102,7 @@ def get_produto(query: ProdutoBuscaSchema):
 
 @app.delete('/product', tags=[product_tag],
             responses={"200": ProdutoDelSchema, "404": ErrorSchema})
-def del_produto(query: ProdutoBuscaSchema):
+def del_produto(query: ProdutoDelBuscaSchema):
     """Deleta um Produto a partir do nome de produto informado
 
     Retorna uma mensagem de confirmação da remoção.
@@ -125,18 +125,17 @@ def del_produto(query: ProdutoBuscaSchema):
 
 @app.post('/schedule', tags=[schedule_tag],
           responses={"200": ScheduleViewSchema, "404": ErrorSchema})
-def add_schedule(form: ScheduleSchema):
+def add_schedule(body: ScheduleSchema):
     """Adiciona um novo agendamento
 
     Retorna uma representação do agendamento.
     """
-    date = datetime.strptime(form.date, "%d/%m/%Y %H:%M")
+    date = datetime.strptime(body.date, "%d/%m/%Y %H:%M")
     schedule = Schedule(
-        name=form.name,
+        name=body.name,
         date=date,
-        src=form.src,
+        src=body.src,
     )
-    logger.debug(form)
     logger.debug(f"Adicionando agendamento de '{schedule.name}' no dia e horário '{schedule.date}'")
     try:
         session = Session()

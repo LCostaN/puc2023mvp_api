@@ -1,15 +1,39 @@
-[2023-07-09 17:07:17,050] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-07-09 17:07:20,593] ERROR get_schedules() L180  Boolean value of this clause is not defined - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\app.py L180 
-[2023-07-09 17:07:20,596] INFO _log() L224  127.0.0.1 - - [09/Jul/2023 17:07:20] "[31m[1mGET /schedules?date=11%2F07%2F2023 HTTP/1.1[0m" 400 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-07-09 17:07:27,595] INFO _log() L224   * Detected change in 'C:\\Users\\Lucas\\dev\\Pos Eng Soft Puc RJ\\mvp-1\\api\\app.py', reloading - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-07-09 17:07:27,698] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-07-09 17:07:28,885] ERROR get_schedules() L180  Boolean value of this clause is not defined - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\app.py L180 
-[2023-07-09 17:07:28,888] INFO _log() L224  127.0.0.1 - - [09/Jul/2023 17:07:28] "[31m[1mGET /schedules?date=11%2F07%2F2023 HTTP/1.1[0m" 400 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-07-09 17:11:04,402] INFO _log() L224   * Detected change in 'C:\\Users\\Lucas\\dev\\Pos Eng Soft Puc RJ\\mvp-1\\api\\app.py', reloading - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-07-09 17:11:04,493] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-07-09 17:11:25,231] INFO _log() L224   * Detected change in 'C:\\Users\\Lucas\\dev\\Pos Eng Soft Puc RJ\\mvp-1\\api\\app.py', reloading - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-07-09 17:11:25,323] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-07-09 17:11:30,502] INFO _log() L224  127.0.0.1 - - [09/Jul/2023 17:11:30] "GET /schedules?date=11%2F07%2F2023 HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-07-09 17:11:42,605] INFO _log() L224  127.0.0.1 - - [09/Jul/2023 17:11:42] "GET /schedules?date=12%2F07%2F2023 HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-07-09 17:11:49,059] INFO _log() L224  127.0.0.1 - - [09/Jul/2023 17:11:49] "GET /schedules?date=14%2F07%2F2023 HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
-[2023-07-09 17:11:53,832] INFO _log() L224  127.0.0.1 - - [09/Jul/2023 17:11:53] "[36mGET /openapi/static/images/swagger.svg HTTP/1.1[0m" 304 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:31:48,698] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:31:50,402] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:31:50] "OPTIONS /schedule HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:31:50,670] ERROR log_exception() L1449 Exception on /schedule [POST] - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\flask\app.py L1449
+Traceback (most recent call last):
+  File "C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\flask\app.py", line 1520, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\flask\app.py", line 1539, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\flask\app.py", line 1730, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The return type must be a string, dict, tuple, Response instance, or WSGI callable, but it was a ScheduleViewSchema.
+[2023-07-10 20:31:50,678] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:31:50] "[35m[1mPOST /schedule HTTP/1.1[0m" 500 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:35:54,339] INFO _log() L224   * Detected change in 'C:\\Users\\Lucas\\dev\\Pos Eng Soft Puc RJ\\mvp-1\\api\\app.py', reloading - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:35:54,455] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:35:58,390] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:35:58] "OPTIONS /schedule HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:35:58,666] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:35:58] "POST /schedule HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:37:46,248] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:37:46] "[36mGET /openapi/static/css/swagger-ui.css HTTP/1.1[0m" 304 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:37:46,335] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:37:46] "[36mGET /openapi/static/js/swagger-ui-bundle.js HTTP/1.1[0m" 304 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:37:46,436] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:37:46] "[36mGET /openapi/static/js/swagger-ui-standalone-preset.js HTTP/1.1[0m" 304 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:37:46,684] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:37:46] "GET /openapi/openapi.json HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:37:47,029] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:37:47] "[36mGET /openapi/static/images/swagger.svg HTTP/1.1[0m" 304 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:37:49,174] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:37:49] "[36mGET /openapi/static/images/swagger.svg HTTP/1.1[0m" 304 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:38:20,144] INFO _log() L224   * Detected change in 'C:\\Users\\Lucas\\dev\\Pos Eng Soft Puc RJ\\mvp-1\\api\\app.py', reloading - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:38:20,264] INFO _log() L224   * Restarting with stat - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:39:11,729] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:39:11] "OPTIONS /schedule HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:39:12,011] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:39:12] "POST /schedule HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:39:20,707] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:39:20] "GET /products HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:40:55,151] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:40:55] "GET /products HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:42:23,571] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:42:23] "GET /products HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:42:50,543] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:42:50] "GET /products HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:43:28,681] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:43:28] "GET /products HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:43:57,187] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:43:57] "GET /products HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:44:03,511] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:44:03] "GET /products HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 
+[2023-07-10 20:44:16,801] INFO _log() L224  127.0.0.1 - - [10/Jul/2023 20:44:16] "GET /products HTTP/1.1" 200 - - call_trace=C:\Users\Lucas\dev\Pos Eng Soft Puc RJ\mvp-1\api\env\Lib\site-packages\werkzeug\_internal.py L224 

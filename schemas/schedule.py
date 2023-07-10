@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from model.schedule import Schedule
 from typing import Optional, List
 
@@ -6,23 +6,24 @@ from typing import Optional, List
 class ScheduleSchema(BaseModel):
     """ Define como um novo agendamento a ser inserido deve ser representado
     """
-    date: str = '12/07/2023 08:30'
-    name: str = "Rex"
-    src: Optional[str] = "https://placehold.co/600x400"
+    date: str = Field(title="Vaga", description="Data e Hora do agendamento", default="12/07/2023 08:30")
+    name: str = Field(title="Nome Pet", description="Nome do Pet", default="Rex")
+    src: Optional[str] = Field(title="Foto Pet", description="Imagem do Pet (URL)", default="https://placehold.co/600x400")
 
 class ScheduleViewSchema(BaseModel):
     """ Define como um agendamento será retornado.
     """
-    id: int = 1
-    name: str = "Rex"
-    date: str = '12/07/2023 08:30'
-    src: str = "https://placehold.co/600x400"
+    id: int = Field(title="Id", description="Id do agendamento", default="1")
+    date: str = Field(title="Vaga", description="Data e Hora do agendamento", default="12/07/2023 08:30")
+    name: str = Field(title="Nome Pet", description="Nome do Pet", default="Rex")
+    src: str = Field(title="Foto Pet", description="Imagem do Pet (URL)", default="https://placehold.co/600x400")
 
     
 class ScheduleListSearchSchema(BaseModel):
     """ Define os parâmetros de busca da listagem de agendamentos
     """
-    date: str = '11/07/2023'
+    date: str = Field(title="Vaga", description="Data e Hora do agendamento", default="12/07/2023")
+
 
 class ScheduleListSchema(BaseModel):
     """ Define como uma listagem de agendamentos será retornada.
