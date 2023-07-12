@@ -22,7 +22,6 @@ class ScheduleViewSchema(BaseModel):
 class ScheduleListSearchSchema(BaseModel):
     """ Define os parâmetros de busca da listagem de agendamentos
     """
-    date: str = Field(title="Vaga", description="Data e Hora do agendamento", default="12/07/2023")
 
 
 class ScheduleListSchema(BaseModel):
