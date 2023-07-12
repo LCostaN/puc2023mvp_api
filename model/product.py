@@ -10,13 +10,13 @@ class Product(Base):
 
     id = Column("pk_product", Integer, primary_key=True)
     name = Column(String(255), unique=True)
-    category = Column(String(255))
-    quantity = Column(Integer)
-    description = Column(String(255))
-    src = Column(String(255))
+    category = Column(String(255), default='')
+    quantity = Column(Integer, default=0)
+    description = Column(String(255), default='')
+    src = Column(String(255), default='https://placehold.co/300x400')
     data_insercao = Column(DateTime, default=datetime.now())
 
-    def __init__(self, name:str, category:str, quantity:int, description:str, src:str):
+    def __init__(self, name:str = '', category:str = '', quantity:int = 0, description:str = '', src:str = 'https://placehold.co/300x400'):
         """
         Cria um Produto
 
@@ -26,8 +26,8 @@ class Product(Base):
             description: Descrição do produto.
             src: URL de imagem do produto
         """
-        self.name = name
-        self.category = category
-        self.quantity = quantity
-        self.description = description
-        self.src = src
+        self.name = name or ''
+        self.category = category or ''
+        self.quantity = quantity or 0
+        self.description = description or ''
+        self.src = src or 'https://placehold.co/300x400'
